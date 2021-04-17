@@ -1,0 +1,76 @@
+{
+  "signIn": {
+    "message": "Sign in",
+    "description": "The text of the login button"
+  },
+  "signUp": {
+    "message": "Sign up",
+    "description": "The text of the sign up button"
+  },
+  "settings": {
+    "message": "Settings",
+    "description": "The title of the settings screen"
+  },
+  "profile": {
+    "message": "Profile",
+    "description": "The title of the Profile screen"
+  },
+  "EmojiPicker--empty": {
+    "message": "No emoji found",
+    "description": "Shown in the emoji picker when a search yields 0 results."
+  },
+  "EmojiPicker--search-placeholder": {
+    "message": "Search Emoji",
+    "description": "Shown as a placeholder inside the emoji picker search field."
+  },
+  "EmojiPicker--skin-tone": {
+    "message": "Skin tone $tone$",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "2"
+      }
+    },
+    "description": "Shown as a tooltip over the emoji tone buttons."
+  },
+  "EmojiPicker__button--recents": {
+    "message": "Recents",
+    "description": "Label for recents emoji picker button"
+  },
+  "EmojiPicker__button--emoji": {
+    "message": "Emoji",
+    "description": "Label for emoji emoji picker button"
+  },
+  "EmojiPicker__button--animal": {
+    "message": "Animal",
+    "description": "Label for animal emoji picker button"
+  },
+  "EmojiPicker__button--food": {
+    "message": "Food",
+    "description": "Label for food emoji picker button"
+  },
+  "EmojiPicker__button--activity": {
+    "message": "Activity",
+    "description": "Label for activity emoji picker button"
+  },
+  "EmojiPicker__button--travel": {
+    "message": "Travel",
+    "description": "Label for travel emoji picker button"
+  },
+  "EmojiPicker__button--object": {
+    "message": "Object",
+    "description": "Label for object emoji picker button"
+  },
+  "EmojiPicker__button--symbol": {
+    "message": "Symbol",
+    "description": "Label for symbol emoji picker button"
+  },
+  "EmojiPicker__button--flag": {
+    "message": "Flag",
+    "description": "Label for flag emoji picker button"
+  },
+  "sendMessageToContact": {
+    "message": "Send Message",
+    "description": "Shown when you are sent a contact and that contact has a signal account"
+  }
+}
