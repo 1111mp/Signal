@@ -14,9 +14,9 @@ import {StackScreenProps} from '@react-navigation/stack';
 import Modal from 'react-native-modal';
 import {useAuthContext} from '@/AuthContext';
 
-const ProfileScreen: React.ComponentType<
-  StackScreenProps<RootStackParamList, 'EditName'>
-> = ({navigation}) => {
+const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
+  navigation,
+}) => {
   const scheme = useColorScheme();
   const dark = scheme === 'dark';
   const {top, bottom} = useSafeAreaInsets();
@@ -67,7 +67,7 @@ const ProfileScreen: React.ComponentType<
           borderTopRightRadius: 8,
           overflow: 'hidden',
         }}
-        onPress={() => navigation.navigate('EditName')}>
+        onPress={() => navigation.navigate('ModalChild', {screen: 'EditName'})}>
         <Icon name="user-o" type="font-awesome" color="#3B3B3B" />
         <ListItem.Content>
           <ListItem.Title>梦想很大大</ListItem.Title>

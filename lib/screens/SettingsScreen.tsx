@@ -4,30 +4,15 @@ import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItem, Avatar, Icon} from 'react-native-elements';
 import {useAuthContext} from '@/AuthContext';
+import {useHeaderLeft} from '@/hooks';
 
-type Props = StackScreenProps<{Info: undefined; Account: undefined}>;
-
-const SettingsScreen: React.ComponentType<Props> = ({navigation}) => {
+const SettingsScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
+  navigation,
+}) => {
   const {getMessage} = useAuthContext();
   const {top} = useSafeAreaInsets();
 
-  const backHandler = () => {
-    navigation.goBack();
-  };
-
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      title: getMessage('settings'),
-      headerLeft: () => (
-        <TouchableOpacity
-          style={{marginLeft: 16}}
-          activeOpacity={0.6}
-          onPress={backHandler}>
-          <Text style={styles.back}>完成</Text>
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
+  useHeaderLeft({navigation, title: getMessage('settings'), text: '完成'});
 
   return (
     <ScrollView style={{...styles.container, paddingTop: top}}>
@@ -61,7 +46,7 @@ const SettingsScreen: React.ComponentType<Props> = ({navigation}) => {
           borderTopRightRadius: 8,
           overflow: 'hidden',
         }}
-        onPress={() => navigation.navigate('Account')}>
+        onPress={() => navigation.navigate('ModalChild', {screen: 'Account'})}>
         <Icon name="user-circle-o" type="font-awesome" color="#3B3B3B" />
         <ListItem.Content>
           <ListItem.Title>账户</ListItem.Title>

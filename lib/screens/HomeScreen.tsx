@@ -12,9 +12,9 @@ import {Avatar, Icon} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import {useAuthContext} from '@/AuthContext';
 
-const HomeScreen: React.ComponentType<
-  StackScreenProps<RootStackParamList, 'SettingsStack'>
-> = ({navigation}) => {
+const HomeScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
+  navigation,
+}) => {
   const {signOut} = useAuthContext()!;
 
   React.useLayoutEffect(() => {
@@ -31,7 +31,7 @@ const HomeScreen: React.ComponentType<
           ImageComponent={FastImage}
           activeOpacity={0.7}
           onPress={() => {
-            navigation.navigate('SettingsStack', {screen: 'Settings'});
+            navigation.navigate('ModalParent', {screen: 'Settings'});
           }}
         />
       ),

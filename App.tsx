@@ -81,11 +81,11 @@ const MainScreen: React.ComponentType = () => {
   );
 };
 
-const SettingsStack = createStackNavigator<SettingsStackParamList>();
+const ModalParentStack = createStackNavigator<ModalParentStackParamList>();
 
-const SettingsStackScreen = () => {
+const ModalParentScreen = () => {
   return (
-    <SettingsStack.Navigator
+    <ModalParentStack.Navigator
       screenOptions={({navigation}) => ({
         headerStatusBarHeight: 0,
         headerBackTitleVisible: false,
@@ -93,17 +93,35 @@ const SettingsStackScreen = () => {
         headerBackground: () => <HeaderBackground />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       })}>
-      <SettingsStack.Screen
+      <ModalParentStack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{}}
       />
-      <SettingsStack.Screen
+      <ModalParentStack.Screen
         name="Info"
         component={ProfileScreen}
         options={{}}
       />
-    </SettingsStack.Navigator>
+    </ModalParentStack.Navigator>
+  );
+};
+
+const ModalChildStack = createStackNavigator<ModalChildStackParamList>();
+
+const ModalChildScreen = () => {
+  return (
+    <ModalChildStack.Navigator
+      screenOptions={({navigation}) => ({
+        headerStatusBarHeight: 0,
+        headerBackTitleVisible: false,
+        headerTransparent: true,
+        headerBackground: () => <HeaderBackground />,
+        headerLeft: () => <HeaderLeft navigation={navigation} />,
+      })}>
+      <ModalChildStack.Screen name="Account" component={AccountScreen} />
+      <ModalChildStack.Screen name="EditName" component={EditNameScreen} />
+    </ModalChildStack.Navigator>
   );
 };
 
@@ -127,7 +145,6 @@ const App = () => {
                 .routes.findIndex((r: {key: string}) => r.key === route.key) > 0
                 ? 0
                 : undefined,
-            headerBackground: () => <HeaderBackground />,
             headerLeft: () => <HeaderLeft navigation={navigation} />,
             ...TransitionPresets.ModalPresentationIOS,
           })}>
@@ -137,12 +154,15 @@ const App = () => {
             options={{headerShown: false}}
           />
           <RootStack.Screen
-            name="SettingsStack"
-            component={SettingsStackScreen}
+            name="ModalParent"
+            component={ModalParentScreen}
             options={{headerShown: false}}
           />
-          <RootStack.Screen name="Account" component={AccountScreen} />
-          <RootStack.Screen name="EditName" component={EditNameScreen} />
+          <RootStack.Screen
+            name="ModalChild"
+            component={ModalChildScreen}
+            options={{headerShown: false}}
+          />
         </RootStack.Navigator>
       </NavigationContainer>
     </Auth>

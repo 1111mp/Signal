@@ -1,13 +1,19 @@
 type RootStackParamList = {
   Main: undefined;
-  SettingsStack: {} | undefined;
-  Account: {} | undefined;
-  EditName: {} | undefined;
+  ModalParent: {} | undefined;
+  ModalChild: {} | undefined;
 };
 
-type SettingsStackParamList = {
+type ModalParentStackParamList = {
   Settings: undefined;
   Info: undefined;
 };
 
-type StackParamList = RootStackParamList & SettingsStackParamList;
+type ModalChildStackParamList = {
+  EditName: {} | undefined;
+  Account: {} | undefined;
+};
+
+type StackParamList = RootStackParamList &
+  ModalParentStackParamList &
+  ModalChildStackParamList;
