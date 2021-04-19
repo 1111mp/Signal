@@ -7,22 +7,23 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {observer} from 'mobx-react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {Avatar, Icon} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
-import {useAuthContext} from '@/AuthContext';
+import {useTargetStore} from '@/stores';
 
-const HomeScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
-  navigation,
-}) => {
-  const {signOut, theme} = useAuthContext()!;
+const HomeScreen: React.ComponentType<
+  StackScreenProps<StackParamList>
+> = observer(({navigation}) => {
+  const {signOut, themeData} = useTargetStore('userStore')!;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerStyle: {
         shadowColor: 'transparent', // ios
         elevation: 0, // android
-        backgroundColor: theme.header_bg_home,
+        backgroundColor: themeData.header_bg_home,
       },
       headerLeft: () => (
         <Avatar
@@ -51,17 +52,17 @@ const HomeScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
         </View>
       ),
     });
-  }, [navigation, theme]);
+  }, [navigation, themeData]);
 
-  console.log(theme.container_home);
+  // console.log(theme.container_home);
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: theme.container_home}}>
+    <ScrollView style={{flex: 1, backgroundColor: themeData.container_home}}>
       <Text>Signed in!</Text>
       <Button title="Sign out" onPress={signOut} />
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   rightContainer: {

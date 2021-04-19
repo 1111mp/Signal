@@ -2,6 +2,15 @@ import {findBestAvailableLanguage, getLocales} from 'react-native-localize';
 import messages_en from 'locales/en/messages.json';
 import messages_zh_CN from 'locales/zh_CN/messages.json';
 
+export type ReplacementValuesType = {
+  [key: string]: string | number;
+};
+
+export type I18nFn = (
+  key: string,
+  substitutions?: Array<string | number> | ReplacementValuesType,
+) => string;
+
 export type LocaleType = {
   localeName: string;
   messages: {[key: string]: {message: string}};

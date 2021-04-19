@@ -10,15 +10,18 @@
 
 import React from 'react';
 import {useEffect} from 'react';
-import {useColorScheme} from 'react-native';
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from '@react-navigation/native';
+// import {useColorScheme} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
-import {Auth, useAuthContext} from '@/AuthContext';
+import {observer} from 'mobx-react';
+// import {Auth, useAuthContext} from '@/AuthContext';
+import {
+  AppStoresProvider,
+  createStore,
+  // useAppStoresContext,
+  useTargetStore,
+} from '@/stores';
 import loadLocale, {LocaleType} from '@/locale';
 
 import HeaderLeft from '@/components/HeaderLeft';
@@ -39,18 +42,18 @@ const MainStack = createStackNavigator();
 
 let locale: LocaleType = loadLocale();
 
-const MainScreen: React.ComponentType = () => {
-  const {state} = useAuthContext()!;
+const MainScreen: React.ComponentType = observer(() => {
+  const {isLoading, token} = useTargetStore('userStore');
 
   useEffect(() => {
-    if (!state.isLoading) {
+    if (!isLoading) {
       SplashScreen.hide();
     }
-  }, [state]);
+  }, [isLoading]);
 
   return (
     <MainStack.Navigator>
-      {state.userToken == null ? (
+      {token == null ? (
         <>
           <MainStack.Screen
             name="SignIn"
@@ -81,7 +84,7 @@ const MainScreen: React.ComponentType = () => {
       )}
     </MainStack.Navigator>
   );
-};
+});
 
 const ModalParentStack = createStackNavigator<ModalParentStackParamList>();
 
@@ -125,10 +128,11 @@ const ModalChildScreen = () => {
 // https://github.com/react-navigation/react-navigation/issues/7916
 
 const App = () => {
-  const scheme = useColorScheme();
+  // const scheme = useColorScheme();
+  const stores = createStore();
 
   return (
-    <Auth messages={locale.messages}>
+    <AppStoresProvider messages={locale.messages} stores={stores}>
       <NavigationContainer /** theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */
       >
         <RootStack.Navigator
@@ -162,7 +166,7 @@ const App = () => {
           />
         </RootStack.Navigator>
       </NavigationContainer>
-    </Auth>
+    </AppStoresProvider>
   );
 };
 

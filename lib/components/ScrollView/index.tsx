@@ -5,6 +5,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTargetStore} from '@/stores';
 
 const ScrollView: React.ComponentType<ScrollViewProps> = ({
   children,
@@ -12,12 +13,17 @@ const ScrollView: React.ComponentType<ScrollViewProps> = ({
   ...props
 }) => {
   const {top} = useSafeAreaInsets();
+  const {themeData} = useTargetStore('userStore');
 
   return (
     <RNScrollView
       style={StyleSheet.flatten([
         style,
-        {paddingTop: top, paddingHorizontal: 16},
+        {
+          paddingTop: top,
+          paddingHorizontal: 16,
+          backgroundColor: themeData.container_modal,
+        },
       ])}
       {...props}>
       {children}

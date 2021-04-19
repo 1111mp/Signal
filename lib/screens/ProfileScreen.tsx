@@ -12,7 +12,7 @@ import {Avatar, ListItem, Icon, Overlay} from 'react-native-elements';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {StackScreenProps} from '@react-navigation/stack';
 import Modal from 'react-native-modal';
-import {useAuthContext} from '@/AuthContext';
+import {useAppStoresContext} from '@/stores';
 
 const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   navigation,
@@ -20,7 +20,7 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   const scheme = useColorScheme();
   const dark = scheme === 'dark';
   const {top, bottom} = useSafeAreaInsets();
-  const {getMessage} = useAuthContext();
+  const {getMessage} = useAppStoresContext();
 
   const [visible, setVisible] = React.useState(false);
 

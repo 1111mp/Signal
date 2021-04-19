@@ -1,18 +1,25 @@
 import * as React from 'react';
-import {ScrollView, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {observer} from 'mobx-react';
+import {StyleSheet} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ListItem, Avatar, Icon} from 'react-native-elements';
-import {useAuthContext} from '@/AuthContext';
+import ScrollView from '@/components/ScrollView';
+import {useAppStoresContext} from '@/stores';
 import {useHeaderLeft} from '@/hooks';
 
-const SettingsScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
-  navigation,
-}) => {
-  const {getMessage} = useAuthContext();
+const SettingsScreen: React.ComponentType<
+  StackScreenProps<StackParamList>
+> = observer(({navigation}) => {
+  const {getMessage, userStore} = useAppStoresContext();
   const {top} = useSafeAreaInsets();
 
-  useHeaderLeft({navigation, title: getMessage('settings'), text: '完成'});
+  useHeaderLeft({
+    navigation,
+    title: getMessage('settings'),
+    text: '完成',
+    themeData: userStore.themeData,
+  });
 
   return (
     <ScrollView style={{...styles.container, paddingTop: top}}>
@@ -171,7 +178,7 @@ const SettingsScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
       </ListItem>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   back: {

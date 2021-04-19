@@ -1,16 +1,17 @@
 import * as React from 'react';
-import {useColorScheme} from 'react-native';
+import {observer} from 'mobx-react';
 import {BlurView} from '@react-native-community/blur';
+import {useTargetStore} from '@/stores';
 
-const HeaderBackground: React.ComponentType = () => {
-  const scheme = useColorScheme();
+const HeaderBackground: React.ComponentType = observer(() => {
+  const {theme} = useTargetStore('userStore');
 
   return (
     <BlurView
       style={{flex: 1}}
-      blurType={scheme === 'dark' ? 'dark' : 'xlight'}
+      blurType={theme === 'dark' ? 'dark' : 'xlight'}
     />
   );
-};
+});
 
 export default HeaderBackground;

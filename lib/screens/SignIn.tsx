@@ -1,15 +1,16 @@
 import React from 'react';
 import {ScrollView, TextInput, Button} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {useAuthContext} from '@/AuthContext';
+import {useTargetStore} from '@/stores';
+import {observer} from 'mobx-react';
 
 const SignInScreen: React.ComponentType<
   StackScreenProps<{SignUp: undefined}>
-> = ({navigation}) => {
+> = observer(({navigation}) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const {signIn} = useAuthContext()!;
+  const {signIn} = useTargetStore('userStore');
 
   return (
     <ScrollView style={{flex: 1}}>
@@ -24,10 +25,10 @@ const SignInScreen: React.ComponentType<
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign in" onPress={() => signIn({username, password})} />
+      <Button title="Sign in" onPress={() => signIn()} />
       <Button title="Sign up" onPress={() => navigation.navigate('SignUp')} />
     </ScrollView>
   );
-};
+});
 
 export default SignInScreen;
