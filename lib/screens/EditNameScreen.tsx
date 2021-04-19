@@ -14,9 +14,7 @@ const EditNameScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   useHeaderLeft({navigation, title: '你的名字', text: '取消'});
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="always"
-      style={{paddingHorizontal: 16}}>
+    <ScrollView keyboardShouldPersistTaps="always">
       <ListItem
         bottomDivider
         style={{

@@ -1,6 +1,7 @@
 import * as React from 'react';
-
+import {Appearance, useColorScheme} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {system, light, dark} from '@/theme';
 
 export type StateType = {
   isLoading: boolean;
@@ -13,12 +14,22 @@ export type ActionType =
   | {type: 'SIGN_IN'; token: string | null}
   | {type: 'SIGN_OUT'};
 
+export type ThemeNameType = 'dark' | 'light' | 'system';
+type ThemeType = {
+  system: typeof system;
+  light: typeof light;
+  dark: typeof dark;
+};
+
 type AuthContextType = {
   state: StateType;
   signIn: (data: any) => Promise<void>;
   signOut: () => void;
   signUp: (data: any) => Promise<void>;
   getMessage: I18nFn;
+  themeName: ThemeNameType | undefined;
+  theme: typeof light | typeof dark;
+  setThemeHandler: (theme: ThemeNameType) => void;
 } | null;
 
 type AuthProps = {
@@ -51,10 +62,15 @@ async function getToken(): Promise<string | null> {
   }
 }
 
+const themes: ThemeType = {system, light, dark};
+
 export const Auth: React.ComponentType<AuthProps> = ({
   children,
   messages,
 }): JSX.Element => {
+  const scheme = useColorScheme();
+  const [theme, setTheme] = React.useState<ThemeNameType>();
+
   const [state, dispatch] = React.useReducer(
     (prevState: StateType, action: ActionType): StateType => {
       switch (action.type) {
@@ -94,9 +110,55 @@ export const Auth: React.ComponentType<AuthProps> = ({
       signUp: async () => {
         dispatch({type: 'SIGN_IN', token: 'dummy-auth-token'});
       },
+      setThemeHandler: (theme: ThemeNameType) => {
+        setTheme(theme);
+      },
     }),
     [],
   );
+
+  // 订阅系统主题变更
+  React.useEffect(() => {
+    const subscription = (preferences: Appearance.AppearancePreferences) => {
+      const {colorScheme} = preferences;
+      setTheme(colorScheme!);
+    };
+
+    Appearance.addChangeListener(subscription);
+
+    return () => {
+      Appearance.removeChangeListener(subscription);
+    };
+  }, []);
+
+  React.useLayoutEffect(() => {
+    setTheme('system');
+  }, []);
+
+  React.useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
+    const bootstrapAsync = async () => {
+      let userToken;
+
+      try {
+        // Restore token stored in `SecureStore` or any other encrypted storage
+        userToken = await getToken();
+      } catch (e) {
+        // Restoring token failed
+        userToken = null;
+      }
+
+      // After restoring token, we may need to validate it in production apps
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      dispatch({type: 'RESTORE_TOKEN', token: userToken});
+    };
+
+    bootstrapAsync();
+  }, []);
+
+  // const setThemeHandler = React.useCallback(, []);
 
   const getMessage = React.useCallback<I18nFn>(
     (key, substitutions) => {
@@ -153,31 +215,15 @@ export const Auth: React.ComponentType<AuthProps> = ({
     [messages],
   );
 
-  React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
-    const bootstrapAsync = async () => {
-      let userToken;
-
-      try {
-        // Restore token stored in `SecureStore` or any other encrypted storage
-        userToken = await getToken();
-      } catch (e) {
-        // Restoring token failed
-        userToken = null;
-      }
-
-      // After restoring token, we may need to validate it in production apps
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      dispatch({type: 'RESTORE_TOKEN', token: userToken});
-    };
-
-    bootstrapAsync();
-  }, []);
-
   return (
-    <AuthContext.Provider value={{state, getMessage, ...authContext}}>
+    <AuthContext.Provider
+      value={{
+        state,
+        getMessage,
+        ...authContext,
+        themeName: theme,
+        theme: {...themes[theme!]},
+      }}>
       {children}
     </AuthContext.Provider>
   );

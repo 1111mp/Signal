@@ -75,7 +75,7 @@ const SettingsScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           borderTopRightRadius: 8,
           overflow: 'hidden',
         }}
-        onPress={() => console.log(1111)}>
+        onPress={() => navigation.navigate('OutWard')}>
         <Icon name="sun" type="feather" color="#3B3B3B" />
         <ListItem.Content>
           <ListItem.Title>外观</ListItem.Title>

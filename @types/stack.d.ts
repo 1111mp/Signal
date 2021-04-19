@@ -7,6 +7,8 @@ type RootStackParamList = {
 type ModalParentStackParamList = {
   Settings: undefined;
   Info: undefined;
+  OutWard: undefined;
+  Theme: undefined;
 };
 
 type ModalChildStackParamList = {

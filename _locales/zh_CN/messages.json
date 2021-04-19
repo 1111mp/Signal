@@ -72,5 +72,17 @@
   "sendMessageToContact": {
     "message": "发送消息",
     "description": "Shown when you are sent a contact and that contact has a signal account"
+  },
+  "light": {
+    "message": "亮色",
+    "description": "Label text for light theme (normal)"
+  },
+  "dark": {
+    "message": "暗色",
+    "description": "Label text for dark theme"
+  },
+  "system": {
+    "message": "系统",
+    "description": "Label text for system theme"
   }
 }

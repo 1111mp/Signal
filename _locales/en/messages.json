@@ -72,5 +72,17 @@
   "sendMessageToContact": {
     "message": "Send Message",
     "description": "Shown when you are sent a contact and that contact has a signal account"
+  },
+  "light": {
+    "message": "Light",
+    "description": "Label text for light theme (normal)"
+  },
+  "dark": {
+    "message": "Dark",
+    "description": "Label text for dark theme"
+  },
+  "system": {
+    "message": "System",
+    "description": "Label text for system theme"
   }
 }

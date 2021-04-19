@@ -15,10 +15,15 @@ import {useAuthContext} from '@/AuthContext';
 const HomeScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   navigation,
 }) => {
-  const {signOut} = useAuthContext()!;
+  const {signOut, theme} = useAuthContext()!;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
+      headerStyle: {
+        shadowColor: 'transparent', // ios
+        elevation: 0, // android
+        backgroundColor: theme.header_bg_home,
+      },
       headerLeft: () => (
         <Avatar
           rounded
@@ -46,10 +51,12 @@ const HomeScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, theme]);
+
+  console.log(theme.container_home);
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView style={{flex: 1, backgroundColor: theme.container_home}}>
       <Text>Signed in!</Text>
       <Button title="Sign out" onPress={signOut} />
     </ScrollView>

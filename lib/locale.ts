@@ -29,8 +29,6 @@ export function getLocaleMessages(): LocaleType {
 
   const {languageTag} = getLocales()[0] || fallback;
 
-  console.log(languageTag);
-
   return {
     localeName: languageTag,
     messages: locales[languageTag],

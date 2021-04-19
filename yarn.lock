@@ -1415,10 +1415,17 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
-"@types/react-native@*", "@types/react-native@^0.64.2":
+"@types/react-native@*":
   version "0.64.2"
   resolved "https://registry.npm.taobao.org/@types/react-native/download/@types/react-native-0.64.2.tgz#2e344aeec0b4eb21fb9eaa0ed8973245c5601d56"
   integrity sha1-LjRK7sC06yH7nqoO2JcyRcVgHVY=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-native@^0.64.3":
+  version "0.64.3"
+  resolved "https://registry.npm.taobao.org/@types/react-native/download/@types/react-native-0.64.3.tgz#02b3eec685e51995a90468382f6bb5d9fff20257"
+  integrity sha1-ArPuxoXlGZWpBGg4L2u12f/yAlc=
   dependencies:
     "@types/react" "*"
 

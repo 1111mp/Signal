@@ -31,6 +31,8 @@ import SignUpScreen from '@/screens/SignUp';
 import ProfileScreen from '@/screens/ProfileScreen';
 import AccountScreen from '@/screens/AccountScreen';
 import EditNameScreen from '@/screens/EditNameScreen';
+import OutWardScreen from '@/screens/OutWardScreen';
+import ThemeScreen from '@/screens/ThemeScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 const MainStack = createStackNavigator();
@@ -93,16 +95,10 @@ const ModalParentScreen = () => {
         headerBackground: () => <HeaderBackground />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       })}>
-      <ModalParentStack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{}}
-      />
-      <ModalParentStack.Screen
-        name="Info"
-        component={ProfileScreen}
-        options={{}}
-      />
+      <ModalParentStack.Screen name="Settings" component={SettingsScreen} />
+      <ModalParentStack.Screen name="Info" component={ProfileScreen} />
+      <ModalParentStack.Screen name="OutWard" component={OutWardScreen} />
+      <ModalParentStack.Screen name="Theme" component={ThemeScreen} />
     </ModalParentStack.Navigator>
   );
 };
@@ -133,7 +129,8 @@ const App = () => {
 
   return (
     <Auth messages={locale.messages}>
-      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <NavigationContainer /** theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */
+      >
         <RootStack.Navigator
           mode="modal"
           screenOptions={({route, navigation}) => ({

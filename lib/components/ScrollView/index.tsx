@@ -15,7 +15,10 @@ const ScrollView: React.ComponentType<ScrollViewProps> = ({
 
   return (
     <RNScrollView
-      style={StyleSheet.flatten([style, {paddingTop: top}])}
+      style={StyleSheet.flatten([
+        style,
+        {paddingTop: top, paddingHorizontal: 16},
+      ])}
       {...props}>
       {children}
     </RNScrollView>
