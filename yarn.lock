@@ -5773,6 +5773,11 @@ react-native-animatable@1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-clean-project@^3.6.3:
+  version "3.6.3"
+  resolved "https://registry.nlark.com/react-native-clean-project/download/react-native-clean-project-3.6.3.tgz#ad43b8e1491512f285b7f455ac56db3328b5a65f"
+  integrity sha1-rUO44UkVEvKFt/RVrFbbMyi1pl8=
+
 react-native-codegen@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npm.taobao.org/react-native-codegen/download/react-native-codegen-0.0.6.tgz#b3173faa879cf71bfade8d030f9c4698388f6909"
