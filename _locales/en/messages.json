@@ -15,6 +15,26 @@
     "message": "Profile",
     "description": "The title of the Profile screen"
   },
+  "YourName": {
+    "message": "Your Name",
+    "description": "The title of the EditName screen"
+  },
+  "Appearance": {
+    "message": "Appearance",
+    "description": "The title of the Appearance screen"
+  },
+  "Theme": {
+    "message": "Theme",
+    "description": "The title of the Theme screen or the label of the Theme"
+  },
+  "done": {
+    "message": "Done",
+    "description": "The label of the done"
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "The label of the cancel"
+  },
   "EmojiPicker--empty": {
     "message": "No emoji found",
     "description": "Shown in the emoji picker when a search yields 0 results."

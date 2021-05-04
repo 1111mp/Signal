@@ -3,16 +3,20 @@ import {observer} from 'mobx-react';
 import {ListItem as RNEListItem} from 'react-native-elements';
 import {useTargetStore} from '@/stores';
 
-const ListItemCheckBox: React.ComponentType<any> = observer(
+const ListItemSubtitle: React.ComponentType<any> = observer(
   ({children, ...props}) => {
     const {themeData} = useTargetStore('userStore');
-
     return (
-      <RNEListItem.CheckBox {...props} checkedColor={themeData.list_item_check}>
+      <RNEListItem.Subtitle
+        {...props}
+        style={{
+          marginTop: 6,
+          color: themeData.list_item_subtitle,
+        }}>
         {children}
-      </RNEListItem.CheckBox>
+      </RNEListItem.Subtitle>
     );
   },
 );
 
-export default ListItemCheckBox;
+export default ListItemSubtitle;

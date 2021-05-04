@@ -1,9 +1,10 @@
-import {observable, action, computed, makeAutoObservable} from 'mobx';
+import {Appearance} from 'react-native';
+import {observable, action, computed, reaction, makeAutoObservable} from 'mobx';
 import Store from '../Store';
-import {system, light, dark} from '@/theme';
+import {light, dark} from '@/theme';
 
 type ThemeType = {
-  system: typeof system;
+  // system: typeof system;
   light: typeof light;
   dark: typeof dark;
 };
@@ -23,7 +24,7 @@ type InfoType = {
 
 export type ThemeDataType = typeof light | typeof dark;
 
-const themes: ThemeType = {system, light, dark};
+const themes: ThemeType = {light, dark};
 
 export default class UserStore {
   @observable isLoading: boolean = true;
@@ -37,18 +38,41 @@ export default class UserStore {
   @observable token: string | null = null;
 
   @observable theme: ThemeNameType | null = null;
+  @observable appTheme: AppThemeNameType | null = null;
 
   constructor() {
     makeAutoObservable(this);
+
+    reaction(
+      () => this.theme,
+      theme => {
+        this.appTheme =
+          theme === 'system' ? Appearance.getColorScheme()! : theme;
+      },
+      {
+        fireImmediately: true,
+      },
+    );
+
+    this.signIn();
+    this.theme = 'system';
   }
 
   @computed get themeData() {
-    return {...themes[this.theme!]};
+    return {
+      ...themes[this.appTheme!],
+    };
   }
 
   @action
   setTheme = (theme: ThemeNameType) => {
     this.theme = theme;
+  };
+
+  @action
+  setAppTheme = (theme: AppThemeNameType) => {
+    if (this.theme !== 'system') return;
+    this.appTheme = theme;
   };
 
   @action

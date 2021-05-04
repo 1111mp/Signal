@@ -3,28 +3,28 @@ import {observer} from 'mobx-react';
 import {StyleSheet} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItem, Avatar, Icon} from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
 import ScrollView from '@/components/ScrollView';
-import {useAppStoresContext} from '@/stores';
-import {useHeaderLeft} from '@/hooks';
+import {
+  Icon,
+  ListItem,
+  ListItemContent,
+  ListItemTitle,
+  ListItemChevron,
+  ListItemSubtitle,
+} from '@/components/List';
+import {useTargetStore} from '@/stores';
 
 const SettingsScreen: React.ComponentType<
   StackScreenProps<StackParamList>
 > = observer(({navigation}) => {
-  const {getMessage, userStore} = useAppStoresContext();
   const {top} = useSafeAreaInsets();
-
-  useHeaderLeft({
-    navigation,
-    title: getMessage('settings'),
-    text: '完成',
-    themeData: userStore.themeData,
-  });
+  const {themeData} = useTargetStore('userStore');
 
   return (
     <ScrollView style={{...styles.container, paddingTop: top}}>
       <ListItem
-        onPress={() => navigation.navigate('Info')}
+        onPress={() => navigation.navigate('Profile')}
         style={{borderRadius: 8, overflow: 'hidden', marginTop: 16}}>
         <Avatar
           rounded
@@ -34,15 +34,14 @@ const SettingsScreen: React.ComponentType<
           }}
           size={56}
         />
-        <ListItem.Content>
-          <ListItem.Title style={{fontWeight: 'bold'}}>
+        <ListItemContent>
+          <ListItemTitle
+            style={{fontWeight: 'bold', color: themeData.list_user_name}}>
             梦想很大很大
-          </ListItem.Title>
-          <ListItem.Subtitle style={{marginTop: 6, color: '#696969'}}>
-            +86 17621398254
-          </ListItem.Subtitle>
-        </ListItem.Content>
-        <ListItem.Chevron />
+          </ListItemTitle>
+          <ListItemSubtitle>+86 17621398254</ListItemSubtitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
 
       <ListItem
@@ -54,11 +53,11 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => navigation.navigate('ModalChild', {screen: 'Account'})}>
-        <Icon name="user-circle-o" type="font-awesome" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>账户</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="user-circle-o" type="font-awesome" />
+        <ListItemContent>
+          <ListItemTitle>账户</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <ListItem
         style={{
@@ -67,11 +66,11 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="vector-link" type="material-community" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>已关联设备</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="vector-link" type="material-community" />
+        <ListItemContent>
+          <ListItemTitle>已关联设备</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
 
       <ListItem
@@ -82,34 +81,34 @@ const SettingsScreen: React.ComponentType<
           borderTopRightRadius: 8,
           overflow: 'hidden',
         }}
-        onPress={() => navigation.navigate('OutWard')}>
-        <Icon name="sun" type="feather" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>外观</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        onPress={() => navigation.navigate('Appearance')}>
+        <Icon name="sun" type="feather" />
+        <ListItemContent>
+          <ListItemTitle>外观</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <ListItem bottomDivider onPress={() => console.log(1111)}>
-        <Icon name="ios-chatbubble-outline" type="ionicon" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>聊天</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="ios-chatbubble-outline" type="ionicon" />
+        <ListItemContent>
+          <ListItemTitle>聊天</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <ListItem bottomDivider onPress={() => console.log(1111)}>
-        <Icon name="ios-notifications-outline" type="ionicon" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>通知</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="ios-notifications-outline" type="ionicon" />
+        <ListItemContent>
+          <ListItemTitle>通知</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <ListItem bottomDivider onPress={() => console.log(1111)}>
-        <Icon name="lock-outline" type="material-community" color="#3B3B3B" />
+        <Icon name="lock-outline" type="material-community" />
         {/* lock */}
-        <ListItem.Content>
-          <ListItem.Title>隐私</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <ListItemContent>
+          <ListItemTitle>隐私</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <ListItem
         style={{
@@ -118,11 +117,11 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="ios-briefcase-outline" type="ionicon" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>数据使用量</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="ios-briefcase-outline" type="ionicon" />
+        <ListItemContent>
+          <ListItemTitle>数据使用量</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
 
       <ListItem
@@ -132,15 +131,11 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon
-          name="help-circle-outline"
-          type="material-community"
-          color="#3B3B3B"
-        />
-        <ListItem.Content>
-          <ListItem.Title>帮助</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="help-circle-outline" type="material-community" />
+        <ListItemContent>
+          <ListItemTitle>帮助</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
 
       <ListItem
@@ -152,11 +147,11 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="email" type="fontisto" color="#3B3B3B" />
-        {/* <Icon name="email" type="zocial" color="#3B3B3B" /> */}
-        <ListItem.Content>
-          <ListItem.Title>邀请您的朋友</ListItem.Title>
-        </ListItem.Content>
+        <Icon name="email" type="fontisto" />
+        {/* <Icon name="email" type="zocial"  /> */}
+        <ListItemContent>
+          <ListItemTitle>邀请您的朋友</ListItemTitle>
+        </ListItemContent>
       </ListItem>
       <ListItem
         style={{
@@ -165,11 +160,11 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="ios-heart-outline" type="ionicon" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>捐赠 Signal</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron
+        <Icon name="ios-heart-outline" type="ionicon" />
+        <ListItemContent>
+          <ListItemTitle>捐赠 Signal</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron
           name="ios-open-outline"
           type="ionicon"
           size={18}
@@ -187,7 +182,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: '#f0f0f0',
   },
 });
 

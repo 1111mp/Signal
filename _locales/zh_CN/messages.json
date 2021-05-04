@@ -15,6 +15,26 @@
     "message": "资料",
     "description": "The title of the Profile screen"
   },
+  "YourName": {
+    "message": "你的名字",
+    "description": "The title of the EditName screen"
+  },
+  "Appearance": {
+    "message": "外观",
+    "description": "The title of the Appearance screen"
+  },
+  "Theme": {
+    "message": "主题",
+    "description": "The title of the Theme screen or the label of the Theme"
+  },
+  "done": {
+    "message": "完成",
+    "description": "The label of the done"
+  },
+  "cancel": {
+    "message": "取消",
+    "description": "The label of the cancel"
+  },
   "EmojiPicker--empty": {
     "message": "没有找到符合条件的表情",
     "description": "Shown in the emoji picker when a search yields 0 results."

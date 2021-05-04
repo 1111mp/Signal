@@ -2,12 +2,13 @@ type RootStackParamList = {
   Main: undefined;
   ModalParent: {} | undefined;
   ModalChild: {} | undefined;
+  Test: {} | undefined;
 };
 
 type ModalParentStackParamList = {
   Settings: undefined;
-  Info: undefined;
-  OutWard: undefined;
+  Profile: undefined;
+  Appearance: undefined;
   Theme: undefined;
 };
 

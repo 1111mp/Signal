@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {Appearance} from 'react-native';
 import {configure} from 'mobx';
 import manager from './StoreManager';
 import ClientStore from './client';
@@ -117,14 +118,6 @@ export const AppStoresProvider: React.ComponentType<AppStoresProps> = ({
     },
     [messages],
   );
-
-  React.useEffect(() => {
-    stores.userStore.signIn();
-  }, []);
-
-  React.useLayoutEffect(() => {
-    stores.userStore.setTheme('system');
-  }, []);
 
   return (
     <AppStoresContext.Provider value={{...stores, getMessage}}>

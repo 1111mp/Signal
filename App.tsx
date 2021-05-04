@@ -10,8 +10,13 @@
 
 import React from 'react';
 import {useEffect} from 'react';
-// import {useColorScheme} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {Appearance} from 'react-native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+  useIsFocused,
+} from '@react-navigation/native';
 import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {observer} from 'mobx-react';
@@ -19,6 +24,7 @@ import {observer} from 'mobx-react';
 import {
   AppStoresProvider,
   createStore,
+  useAppStoresContext,
   // useAppStoresContext,
   useTargetStore,
 } from '@/stores';
@@ -34,8 +40,9 @@ import SignUpScreen from '@/screens/SignUp';
 import ProfileScreen from '@/screens/ProfileScreen';
 import AccountScreen from '@/screens/AccountScreen';
 import EditNameScreen from '@/screens/EditNameScreen';
-import OutWardScreen from '@/screens/OutWardScreen';
+import AppearanceScreen from '@/screens/AppearanceScreen';
 import ThemeScreen from '@/screens/ThemeScreen';
+import {useColorScheme} from 'react-native';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 const MainStack = createStackNavigator();
@@ -43,7 +50,8 @@ const MainStack = createStackNavigator();
 let locale: LocaleType = loadLocale();
 
 const MainScreen: React.ComponentType = observer(() => {
-  const {isLoading, token} = useTargetStore('userStore');
+  const isFocused = useIsFocused();
+  const {isLoading, token, themeData, appTheme} = useTargetStore('userStore');
 
   useEffect(() => {
     if (!isLoading) {
@@ -52,7 +60,19 @@ const MainScreen: React.ComponentType = observer(() => {
   }, [isLoading]);
 
   return (
-    <MainStack.Navigator>
+    <MainStack.Navigator
+      screenOptions={() => ({
+        headerStyle: {
+          shadowColor: 'transparent', // ios
+          elevation: 0, // android
+          backgroundColor: isFocused
+            ? themeData.header_bg_home
+            : themeData.header_bg_home_blur,
+        },
+        headerTitleStyle: {
+          color: themeData.header_title_color,
+        },
+      })}>
       {token == null ? (
         <>
           <MainStack.Screen
@@ -73,14 +93,23 @@ const MainScreen: React.ComponentType = observer(() => {
           />
         </>
       ) : (
-        <MainStack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            title: 'Signal',
-            ...TransitionPresets.FadeFromBottomAndroid,
-          }}
-        />
+        <>
+          <MainStack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              title: 'Signal',
+              ...TransitionPresets.FadeFromBottomAndroid,
+            }}
+          />
+          <MainStack.Screen
+            name="Test"
+            component={SignUpScreen}
+            options={{
+              title: 'Sign up',
+            }}
+          />
+        </>
       )}
     </MainStack.Navigator>
   );
@@ -89,6 +118,8 @@ const MainScreen: React.ComponentType = observer(() => {
 const ModalParentStack = createStackNavigator<ModalParentStackParamList>();
 
 const ModalParentScreen = () => {
+  const {getMessage} = useAppStoresContext();
+
   return (
     <ModalParentStack.Navigator
       screenOptions={({navigation}) => ({
@@ -98,10 +129,33 @@ const ModalParentScreen = () => {
         headerBackground: () => <HeaderBackground />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       })}>
-      <ModalParentStack.Screen name="Settings" component={SettingsScreen} />
-      <ModalParentStack.Screen name="Info" component={ProfileScreen} />
-      <ModalParentStack.Screen name="OutWard" component={OutWardScreen} />
-      <ModalParentStack.Screen name="Theme" component={ThemeScreen} />
+      <ModalParentStack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={({navigation}) => ({
+          title: getMessage('settings'),
+          headerLeft: () => (
+            <HeaderLeft navigation={navigation} text={getMessage('done')} />
+          ),
+        })}
+      />
+      <ModalParentStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={() => ({
+          title: getMessage('profile'),
+        })}
+      />
+      <ModalParentStack.Screen
+        name="Appearance"
+        component={AppearanceScreen}
+        options={() => ({title: getMessage('Appearance')})}
+      />
+      <ModalParentStack.Screen
+        name="Theme"
+        component={ThemeScreen}
+        options={() => ({title: getMessage('Theme')})}
+      />
     </ModalParentStack.Navigator>
   );
 };
@@ -109,6 +163,8 @@ const ModalParentScreen = () => {
 const ModalChildStack = createStackNavigator<ModalChildStackParamList>();
 
 const ModalChildScreen = () => {
+  const {getMessage} = useAppStoresContext();
+
   return (
     <ModalChildStack.Navigator
       screenOptions={({navigation}) => ({
@@ -119,7 +175,16 @@ const ModalChildScreen = () => {
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       })}>
       <ModalChildStack.Screen name="Account" component={AccountScreen} />
-      <ModalChildStack.Screen name="EditName" component={EditNameScreen} />
+      <ModalChildStack.Screen
+        name="EditName"
+        component={EditNameScreen}
+        options={({navigation}) => ({
+          title: getMessage('YourName'),
+          headerLeft: () => (
+            <HeaderLeft navigation={navigation} text={getMessage('cancel')} />
+          ),
+        })}
+      />
     </ModalChildStack.Navigator>
   );
 };
@@ -128,13 +193,24 @@ const ModalChildScreen = () => {
 // https://github.com/react-navigation/react-navigation/issues/7916
 
 const App = () => {
-  // const scheme = useColorScheme();
+  const scheme = useColorScheme();
   const stores = createStore();
+
+  React.useEffect(() => {
+    const _subscription = ({colorScheme}: Appearance.AppearancePreferences) => {
+      stores.userStore.setAppTheme(colorScheme!);
+    };
+
+    Appearance.addChangeListener(_subscription);
+
+    return () => {
+      Appearance.removeChangeListener(_subscription);
+    };
+  }, []);
 
   return (
     <AppStoresProvider messages={locale.messages} stores={stores}>
-      <NavigationContainer /** theme={scheme === 'dark' ? DarkTheme : DefaultTheme} */
-      >
+      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <RootStack.Navigator
           mode="modal"
           screenOptions={({route, navigation}) => ({

@@ -11,7 +11,6 @@ import {
   ListItemCheckBox,
 } from '@/components/List';
 import {useAppStoresContext} from '@/stores';
-import {useHeaderLeft} from '@/hooks';
 
 type ThemeType = ThemeNameType;
 
@@ -22,12 +21,6 @@ const ThemeScreen: React.ComponentType<
 > = observer(({navigation}) => {
   const {getMessage, userStore} = useAppStoresContext();
 
-  useHeaderLeft({
-    navigation,
-    title: '主题',
-    themeData: userStore.themeData,
-  });
-
   const checkHandler = (theme: ThemeNameType) => {
     userStore.setTheme(theme);
   };
@@ -36,7 +29,6 @@ const ThemeScreen: React.ComponentType<
     <ScrollView>
       {themes.map((theme: ThemeType, index: number) => (
         <ListItem
-          themeData={userStore.themeData}
           key={theme}
           bottomDivider={index === themes.length - 1 ? false : true}
           style={StyleSheet.flatten([
@@ -54,12 +46,9 @@ const ThemeScreen: React.ComponentType<
           ])}
           onPress={() => checkHandler(theme)}>
           <ListItemContent>
-            <ListItemTitle themeData={userStore.themeData}>
-              {getMessage(theme)}
-            </ListItemTitle>
+            <ListItemTitle>{getMessage(theme)}</ListItemTitle>
           </ListItemContent>
           <ListItemCheckBox
-            themeData={userStore.themeData}
             Component={View}
             activeOpacity={1}
             uncheckedColor="transparent"

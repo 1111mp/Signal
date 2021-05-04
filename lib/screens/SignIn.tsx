@@ -10,10 +10,14 @@ const SignInScreen: React.ComponentType<
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const {signIn} = useTargetStore('userStore');
+  const {signIn, themeData} = useTargetStore('userStore');
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: themeData.container_home,
+      }}>
       <TextInput
         placeholder="Username"
         value={username}

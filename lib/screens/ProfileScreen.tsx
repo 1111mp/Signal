@@ -1,18 +1,23 @@
 import * as React from 'react';
 import {
-  Button,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
   useColorScheme,
   View,
 } from 'react-native';
-import {Avatar, ListItem, Icon, Overlay} from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {StackScreenProps} from '@react-navigation/stack';
 import Modal from 'react-native-modal';
-import {useAppStoresContext} from '@/stores';
+import {
+  Icon,
+  ListItem,
+  ListItemContent,
+  ListItemTitle,
+  ListItemChevron,
+} from '@/components/List';
+import ScrollView from '@/components/ScrollView';
 
 const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   navigation,
@@ -20,20 +25,13 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   const scheme = useColorScheme();
   const dark = scheme === 'dark';
   const {top, bottom} = useSafeAreaInsets();
-  const {getMessage} = useAppStoresContext();
 
   const [visible, setVisible] = React.useState(false);
 
   const bgColor = dark ? '#D4D4D4' : '#ffffff';
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      title: getMessage('profile'),
-    });
-  }, [navigation]);
-
   return (
-    <ScrollView style={{...styles.container, paddingTop: top}}>
+    <ScrollView>
       <View style={styles.avatar}>
         <Avatar
           rounded
@@ -68,11 +66,11 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           overflow: 'hidden',
         }}
         onPress={() => navigation.navigate('ModalChild', {screen: 'EditName'})}>
-        <Icon name="user-o" type="font-awesome" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>梦想很大大</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="user-o" darkName="user-circle-o" type="font-awesome" />
+        <ListItemContent>
+          <ListItemTitle>梦想很大大</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <ListItem
         style={{
@@ -81,11 +79,11 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="infocirlceo" type="antdesign" color="#3B3B3B" />
-        <ListItem.Content>
-          <ListItem.Title>关于</ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron />
+        <Icon name="infocirlceo" darkName="infocirlce" type="antdesign" />
+        <ListItemContent>
+          <ListItemTitle>关于</ListItemTitle>
+        </ListItemContent>
+        <ListItemChevron />
       </ListItem>
       <View style={{marginTop: 10, paddingHorizontal: 14}}>
         <Text style={{fontSize: 12, lineHeight: 18, color: '#666666'}}>
@@ -109,34 +107,32 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
             borderTopRightRadius: 16,
             overflow: 'hidden',
           }}>
-          <ListItem.Content style={styles.center}>
-            <ListItem.Title style={{fontWeight: 'bold'}}>
-              设置头像
-            </ListItem.Title>
-          </ListItem.Content>
+          <ListItemContent style={styles.center}>
+            <ListItemTitle style={{fontWeight: 'bold'}}>设置头像</ListItemTitle>
+          </ListItemContent>
         </ListItem>
         <ListItem bottomDivider onPress={() => {}}>
-          <ListItem.Content style={styles.center}>
-            <ListItem.Title>相机</ListItem.Title>
-          </ListItem.Content>
+          <ListItemContent style={styles.center}>
+            <ListItemTitle>相机</ListItemTitle>
+          </ListItemContent>
         </ListItem>
         <ListItem bottomDivider onPress={() => {}}>
-          <ListItem.Content style={styles.center}>
-            <ListItem.Title>相册</ListItem.Title>
-          </ListItem.Content>
+          <ListItemContent style={styles.center}>
+            <ListItemTitle>相册</ListItemTitle>
+          </ListItemContent>
         </ListItem>
         <ListItem bottomDivider onPress={() => {}}>
-          <ListItem.Content style={styles.center}>
-            <ListItem.Title>移除照片</ListItem.Title>
-          </ListItem.Content>
+          <ListItemContent style={styles.center}>
+            <ListItemTitle>移除照片</ListItemTitle>
+          </ListItemContent>
         </ListItem>
         <ListItem
           bottomDivider
           containerStyle={{paddingBottom: bottom}}
           onPress={() => {}}>
-          <ListItem.Content style={styles.center}>
-            <ListItem.Title>取消</ListItem.Title>
-          </ListItem.Content>
+          <ListItemContent style={styles.center}>
+            <ListItemTitle>取消</ListItemTitle>
+          </ListItemContent>
         </ListItem>
       </Modal>
     </ScrollView>
@@ -144,11 +140,6 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    paddingHorizontal: 16,
-  },
   avatar: {
     display: 'flex',
     flexDirection: 'row',

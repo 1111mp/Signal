@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
+import ScrollView from '@/components/ScrollView';
 
 const AccountScreen: React.ComponentType = () => {
   return <ScrollView style={styles.container}></ScrollView>;

@@ -6,25 +6,25 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import {observer} from 'mobx-react';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {Avatar, Icon} from 'react-native-elements';
+import {Icon} from '@/components/List';
+import {Avatar} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import {useTargetStore} from '@/stores';
 
 const HomeScreen: React.ComponentType<
   StackScreenProps<StackParamList>
 > = observer(({navigation}) => {
-  const {signOut, themeData} = useTargetStore('userStore')!;
+  const isFocused = useIsFocused();
+  const [allow, setAllow] = React.useState<boolean>(true);
+  const {themeData, appTheme} = useTargetStore('userStore')!;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerStyle: {
-        shadowColor: 'transparent', // ios
-        elevation: 0, // android
-        backgroundColor: themeData.header_bg_home,
-      },
       headerLeft: () => (
         <Avatar
           rounded
@@ -44,22 +44,46 @@ const HomeScreen: React.ComponentType<
       headerRight: () => (
         <View style={styles.rightContainer}>
           <TouchableOpacity activeOpacity={0.6} style={{marginRight: 16}}>
-            <Icon name="camera-outline" type="ionicon" />
+            <Icon name="camera-outline" darkName="camera" type="ionicon" />
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.6}>
-            <Icon name="paper-plane-outline" type="ionicon" />
+            <Icon
+              name="paper-plane-outline"
+              darkName="paper-plane-sharp"
+              type="ionicon"
+            />
           </TouchableOpacity>
         </View>
       ),
     });
-  }, [navigation, themeData]);
+  }, [navigation]);
 
-  // console.log(theme.container_home);
+  useFocusEffect(
+    React.useCallback(() => {
+      setAllow(true);
+    }, [setAllow]),
+  );
 
   return (
-    <ScrollView style={{flex: 1, backgroundColor: themeData.container_home}}>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor:
+          allow && !isFocused
+            ? themeData.container_home_blur
+            : themeData.container_home,
+      }}>
+      <StatusBar
+        barStyle={appTheme === 'dark' ? 'light-content' : 'dark-content'}
+      />
       <Text>Signed in!</Text>
-      <Button title="Sign out" onPress={signOut} />
+      <Button
+        title="Sign out"
+        onPress={() => {
+          setAllow(false);
+          navigation.navigate('Test');
+        }}
+      />
     </ScrollView>
   );
 });

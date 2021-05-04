@@ -1,17 +1,14 @@
 import * as React from 'react';
 import {TextInput} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ListItem, Input} from 'react-native-elements';
+import {Input} from 'react-native-elements';
 import ScrollView from '@/components/ScrollView';
-import {useHeaderLeft} from '@/hooks';
+import {ListItem, ListItemContent} from '@/components/List';
 
 const EditNameScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   navigation,
 }) => {
   const submitRef = React.useRef<TextInput>();
-
-  useHeaderLeft({navigation, title: '你的名字', text: '取消'});
 
   return (
     <ScrollView keyboardShouldPersistTaps="always">
@@ -24,7 +21,7 @@ const EditNameScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           overflow: 'hidden',
         }}
         containerStyle={{padding: 4}}>
-        <ListItem.Content>
+        <ListItemContent>
           <Input
             placeholder="姓（可选）"
             autoFocus={true}
@@ -34,7 +31,7 @@ const EditNameScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
             inputContainerStyle={{borderBottomWidth: 0}}
             onSubmitEditing={() => submitRef.current?.focus()}
           />
-        </ListItem.Content>
+        </ListItemContent>
       </ListItem>
       <ListItem
         style={{
@@ -43,7 +40,7 @@ const EditNameScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           overflow: 'hidden',
         }}
         containerStyle={{padding: 4}}>
-        <ListItem.Content>
+        <ListItemContent>
           <Input
             //@ts-ignore
             ref={submitRef}
@@ -54,7 +51,7 @@ const EditNameScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
             inputContainerStyle={{borderBottomWidth: 0}}
             // errorStyle={{height: 0}}
           />
-        </ListItem.Content>
+        </ListItemContent>
       </ListItem>
     </ScrollView>
   );

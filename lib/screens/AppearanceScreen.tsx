@@ -10,23 +10,15 @@ import {
   ListItemChevron,
 } from '@/components/List';
 import {useAppStoresContext} from '@/stores';
-import {useHeaderLeft} from '@/hooks';
 
-const OutWardScreen: React.ComponentType<
+const AppearanceScreen: React.ComponentType<
   StackScreenProps<StackParamList>
 > = observer(({navigation}) => {
   const {userStore, getMessage} = useAppStoresContext();
 
-  useHeaderLeft({
-    navigation,
-    title: '外观',
-    themeData: userStore.themeData,
-  });
-
   return (
     <ScrollView>
       <ListItem
-        themeData={userStore.themeData}
         bottomDivider
         style={{
           marginTop: 16,
@@ -37,22 +29,19 @@ const OutWardScreen: React.ComponentType<
         pad={6}
         onPress={() => navigation.navigate('Theme')}>
         <ListItemContent>
-          <ListItemTitle themeData={userStore.themeData}>主题</ListItemTitle>
+          <ListItemTitle>{getMessage('Theme')}</ListItemTitle>
         </ListItemContent>
         <Text style={{color: '#999999'}}>{getMessage(userStore.theme!)}</Text>
         <ListItemChevron />
       </ListItem>
       <ListItem
-        themeData={userStore.themeData}
         style={{
           borderBottomLeftRadius: 8,
           borderBottomRightRadius: 8,
           overflow: 'hidden',
         }}>
         <ListItemContent>
-          <ListItemTitle themeData={userStore.themeData}>
-            聊天墙纸
-          </ListItemTitle>
+          <ListItemTitle>聊天墙纸</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
@@ -60,4 +49,4 @@ const OutWardScreen: React.ComponentType<
   );
 });
 
-export default OutWardScreen;
+export default AppearanceScreen;
