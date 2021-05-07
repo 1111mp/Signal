@@ -18,13 +18,15 @@ import {
   ListItemChevron,
 } from '@/components/List';
 import ScrollView from '@/components/ScrollView';
+import {useAppStoresContext} from '@/stores';
 
 const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
   navigation,
 }) => {
   const scheme = useColorScheme();
   const dark = scheme === 'dark';
-  const {top, bottom} = useSafeAreaInsets();
+  const {bottom} = useSafeAreaInsets();
+  const {getMessage, userStore} = useAppStoresContext();
 
   const [visible, setVisible] = React.useState(false);
 
@@ -66,7 +68,7 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           overflow: 'hidden',
         }}
         onPress={() => navigation.navigate('ModalChild', {screen: 'EditName'})}>
-        <Icon name="user-o" darkName="user-circle-o" type="font-awesome" />
+        <Icon name="user-o" darkName="user" type="font-awesome" />
         <ListItemContent>
           <ListItemTitle>梦想很大大</ListItemTitle>
         </ListItemContent>
@@ -79,17 +81,27 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="infocirlceo" darkName="infocirlce" type="antdesign" />
+        <Icon
+          name="exclamationcircleo"
+          darkName="exclamationcircle"
+          type="antdesign"
+        />
         <ListItemContent>
-          <ListItemTitle>关于</ListItemTitle>
+          <ListItemTitle>{getMessage('about')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
       <View style={{marginTop: 10, paddingHorizontal: 14}}>
         <Text style={{fontSize: 12, lineHeight: 18, color: '#666666'}}>
-          您的个人资料已通过端对端加密。您的联系人，以及您接受的新聊天对象将能看到您的个人资料及更新。
+          {getMessage('profile_introduction')}
           <TouchableHighlight underlayColor="transparent" onPress={() => {}}>
-            <Text>了解更多</Text>
+            <Text
+              style={{
+                marginBottom: -2,
+                color: userStore.themeData.list_item_title,
+              }}>
+              {getMessage('learn_more')}
+            </Text>
           </TouchableHighlight>
         </Text>
       </View>
@@ -108,22 +120,24 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
             overflow: 'hidden',
           }}>
           <ListItemContent style={styles.center}>
-            <ListItemTitle style={{fontWeight: 'bold'}}>设置头像</ListItemTitle>
+            <ListItemTitle style={{fontWeight: 'bold'}}>
+              {getMessage('set_profile_photo')}
+            </ListItemTitle>
           </ListItemContent>
         </ListItem>
         <ListItem bottomDivider onPress={() => {}}>
           <ListItemContent style={styles.center}>
-            <ListItemTitle>相机</ListItemTitle>
+            <ListItemTitle>{getMessage('camera')}</ListItemTitle>
           </ListItemContent>
         </ListItem>
         <ListItem bottomDivider onPress={() => {}}>
           <ListItemContent style={styles.center}>
-            <ListItemTitle>相册</ListItemTitle>
+            <ListItemTitle>{getMessage('photo_library')}</ListItemTitle>
           </ListItemContent>
         </ListItem>
         <ListItem bottomDivider onPress={() => {}}>
           <ListItemContent style={styles.center}>
-            <ListItemTitle>移除照片</ListItemTitle>
+            <ListItemTitle>{getMessage('remove_photo')}</ListItemTitle>
           </ListItemContent>
         </ListItem>
         <ListItem
@@ -131,7 +145,7 @@ const ProfileScreen: React.ComponentType<StackScreenProps<StackParamList>> = ({
           containerStyle={{paddingBottom: bottom}}
           onPress={() => {}}>
           <ListItemContent style={styles.center}>
-            <ListItemTitle>取消</ListItemTitle>
+            <ListItemTitle>{getMessage('cancel')}</ListItemTitle>
           </ListItemContent>
         </ListItem>
       </Modal>

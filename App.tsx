@@ -198,7 +198,7 @@ const App = () => {
 
   React.useEffect(() => {
     const _subscription = ({colorScheme}: Appearance.AppearancePreferences) => {
-      stores.userStore.setAppTheme(colorScheme!);
+      stores.userStore.setAppTheme(Appearance.getColorScheme()!);
     };
 
     Appearance.addChangeListener(_subscription);

@@ -13,13 +13,14 @@ import {
   ListItemChevron,
   ListItemSubtitle,
 } from '@/components/List';
-import {useTargetStore} from '@/stores';
+import {useAppStoresContext, useTargetStore} from '@/stores';
 
 const SettingsScreen: React.ComponentType<
   StackScreenProps<StackParamList>
 > = observer(({navigation}) => {
   const {top} = useSafeAreaInsets();
-  const {themeData} = useTargetStore('userStore');
+  const {getMessage, userStore} = useAppStoresContext();
+  const {themeData, appTheme} = userStore;
 
   return (
     <ScrollView style={{...styles.container, paddingTop: top}}>
@@ -53,9 +54,9 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => navigation.navigate('ModalChild', {screen: 'Account'})}>
-        <Icon name="user-circle-o" type="font-awesome" />
+        <Icon name="user-circle" darkName="user-circle-o" type="font-awesome" />
         <ListItemContent>
-          <ListItemTitle>账户</ListItemTitle>
+          <ListItemTitle>{getMessage('account')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
@@ -66,9 +67,13 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="vector-link" type="material-community" />
+        <Icon
+          name="shield-link-variant-outline"
+          darkName="shield-link-variant"
+          type="material-community"
+        />
         <ListItemContent>
-          <ListItemTitle>已关联设备</ListItemTitle>
+          <ListItemTitle>{getMessage('linked')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
@@ -82,31 +87,39 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => navigation.navigate('Appearance')}>
-        <Icon name="sun" type="feather" />
+        <Icon name="ios-sunny-outline" darkName="ios-sunny" type="ionicon" />
         <ListItemContent>
-          <ListItemTitle>外观</ListItemTitle>
+          <ListItemTitle>{getMessage('Appearance')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
       <ListItem bottomDivider onPress={() => console.log(1111)}>
-        <Icon name="ios-chatbubble-outline" type="ionicon" />
+        <Icon
+          name="ios-chatbubble-outline"
+          darkName="ios-chatbubble-sharp"
+          type="ionicon"
+        />
         <ListItemContent>
-          <ListItemTitle>聊天</ListItemTitle>
+          <ListItemTitle>{getMessage('chats')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
       <ListItem bottomDivider onPress={() => console.log(1111)}>
-        <Icon name="ios-notifications-outline" type="ionicon" />
+        <Icon
+          name="ios-notifications-outline"
+          darkName="ios-notifications-sharp"
+          type="ionicon"
+        />
         <ListItemContent>
-          <ListItemTitle>通知</ListItemTitle>
+          <ListItemTitle>{getMessage('notifications')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
       <ListItem bottomDivider onPress={() => console.log(1111)}>
-        <Icon name="lock-outline" type="material-community" />
+        <Icon name="lock-outline" darkName="lock" type="material-community" />
         {/* lock */}
         <ListItemContent>
-          <ListItemTitle>隐私</ListItemTitle>
+          <ListItemTitle>{getMessage('privacy')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
@@ -117,9 +130,13 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="ios-briefcase-outline" type="ionicon" />
+        <Icon
+          name="ios-briefcase-outline"
+          darkName="ios-briefcase-sharp"
+          type="ionicon"
+        />
         <ListItemContent>
-          <ListItemTitle>数据使用量</ListItemTitle>
+          <ListItemTitle>{getMessage('dataUsage')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
@@ -131,9 +148,13 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="help-circle-outline" type="material-community" />
+        <Icon
+          name="help-circle-outline"
+          darkName="help-circle"
+          type="material-community"
+        />
         <ListItemContent>
-          <ListItemTitle>帮助</ListItemTitle>
+          <ListItemTitle>{getMessage('help')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>
@@ -147,10 +168,13 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="email" type="fontisto" />
-        {/* <Icon name="email" type="zocial"  /> */}
+        {appTheme === 'light' ? (
+          <Icon name="email" type="fontisto" />
+        ) : (
+          <Icon name="email" type="zocial" />
+        )}
         <ListItemContent>
-          <ListItemTitle>邀请您的朋友</ListItemTitle>
+          <ListItemTitle>{getMessage('invite_friends')}</ListItemTitle>
         </ListItemContent>
       </ListItem>
       <ListItem
@@ -160,9 +184,13 @@ const SettingsScreen: React.ComponentType<
           overflow: 'hidden',
         }}
         onPress={() => console.log(1111)}>
-        <Icon name="ios-heart-outline" type="ionicon" />
+        <Icon
+          name="ios-heart-outline"
+          darkName="ios-heart-sharp"
+          type="ionicon"
+        />
         <ListItemContent>
-          <ListItemTitle>捐赠 Signal</ListItemTitle>
+          <ListItemTitle>{getMessage('donate')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron
           name="ios-open-outline"

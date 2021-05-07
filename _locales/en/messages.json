@@ -15,6 +15,18 @@
     "message": "Profile",
     "description": "The title of the Profile screen"
   },
+  "profile_introduction": {
+    "message": "Your profile is end-to-end encrypted. Your profile and changes to it will be visible to your concacts and when you start or accept new chats. ",
+    "description": "The label of the Profile profile_introduction"
+  },
+  "learn_more": {
+    "message": "Learn More",
+    "description": "The label of the learn_more"
+  },
+  "about": {
+    "message": "About",
+    "description": "The label of the about"
+  },
   "YourName": {
     "message": "Your Name",
     "description": "The title of the EditName screen"
@@ -34,6 +46,62 @@
   "cancel": {
     "message": "Cancel",
     "description": "The label of the cancel"
+  },
+  "account": {
+    "message": "Account",
+    "description": "The label of the account"
+  },
+  "linked": {
+    "message": "Linked Devices",
+    "description": "The label of the linked devices"
+  },
+  "chats": {
+    "message": "Chats",
+    "description": "The label of the chats"
+  },
+  "notifications": {
+    "message": "Notifications",
+    "description": "The label of the notifications"
+  },
+  "privacy": {
+    "message": "Privacy",
+    "description": "The label of the privacy"
+  },
+  "dataUsage": {
+    "message": "Data Usage",
+    "description": "The label of the dataUsage"
+  },
+  "help": {
+    "message": "Help",
+    "description": "The label of the help"
+  },
+  "invite_friends": {
+    "message": "Invite Your Friends",
+    "description": "The label of the invite_friends"
+  },
+  "donate": {
+    "message": "Donate to Signal",
+    "description": "The label of the donate"
+  },
+  "chat_wallpaper": {
+    "message": "Chat Wallpaper",
+    "description": "The label of the chat_wallpaper"
+  },
+  "set_profile_photo": {
+    "message": "Set Profile Photo",
+    "description": "The label of the set_profile_photo"
+  },
+  "camera": {
+    "message": "Camera",
+    "description": "The label of the camera"
+  },
+  "photo_library": {
+    "message": "Photo Library",
+    "description": "The label of the photo_library"
+  },
+  "remove_photo": {
+    "message": "Remove Photo",
+    "description": "The label of the remove_photo"
   },
   "EmojiPicker--empty": {
     "message": "No emoji found",

@@ -41,7 +41,7 @@ const AppearanceScreen: React.ComponentType<
           overflow: 'hidden',
         }}>
         <ListItemContent>
-          <ListItemTitle>聊天墙纸</ListItemTitle>
+          <ListItemTitle>{getMessage('chat_wallpaper')}</ListItemTitle>
         </ListItemContent>
         <ListItemChevron />
       </ListItem>

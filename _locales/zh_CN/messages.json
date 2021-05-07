@@ -15,6 +15,18 @@
     "message": "资料",
     "description": "The title of the Profile screen"
   },
+  "profile_introduction": {
+    "message": "您的个人资料已通过端对端加密。您的联系人，以及您接受的新聊天对象将能看到您的个人资料及更新。",
+    "description": "The label of the Profile profile_introduction"
+  },
+  "learn_more": {
+    "message": "了解更多",
+    "description": "The label of the learn_more"
+  },
+  "about": {
+    "message": "关于",
+    "description": "The label of the about"
+  },
   "YourName": {
     "message": "你的名字",
     "description": "The title of the EditName screen"
@@ -34,6 +46,62 @@
   "cancel": {
     "message": "取消",
     "description": "The label of the cancel"
+  },
+  "account": {
+    "message": "账户",
+    "description": "The label of the account"
+  },
+  "linked": {
+    "message": "已关联设备",
+    "description": "The label of the linked devices"
+  },
+  "chats": {
+    "message": "聊天",
+    "description": "The label of the chats"
+  },
+  "notifications": {
+    "message": "通知",
+    "description": "The label of the notifications"
+  },
+  "privacy": {
+    "message": "隐私",
+    "description": "The label of the privacy"
+  },
+  "dataUsage": {
+    "message": "数据使用量",
+    "description": "The label of the dataUsage"
+  },
+  "help": {
+    "message": "帮助",
+    "description": "The label of the help"
+  },
+  "invite_friends": {
+    "message": "邀请您的朋友",
+    "description": "The label of the invite_friends"
+  },
+  "donate": {
+    "message": "捐赠 Signal",
+    "description": "The label of the donate"
+  },
+  "chat_wallpaper": {
+    "message": "聊天壁纸",
+    "description": "The label of the chat_wallpaper"
+  },
+  "set_profile_photo": {
+    "message": "设置头像",
+    "description": "The label of the set_profile_photo"
+  },
+  "camera": {
+    "message": "相机",
+    "description": "The label of the camera"
+  },
+  "photo_library": {
+    "message": "相册",
+    "description": "The label of the photo_library"
+  },
+  "remove_photo": {
+    "message": "移除照片",
+    "description": "The label of the remove_photo"
   },
   "EmojiPicker--empty": {
     "message": "没有找到符合条件的表情",

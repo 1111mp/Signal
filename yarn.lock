@@ -5837,7 +5837,7 @@ react-native-fast-image@^8.3.4:
 
 react-native-gesture-handler@^1.10.3:
   version "1.10.3"
-  resolved "https://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.10.3.tgz#942bbf2963bbf49fa79593600ee9d7b5dab3cfc0"
+  resolved "https://registry.nlark.com/react-native-gesture-handler/download/react-native-gesture-handler-1.10.3.tgz#942bbf2963bbf49fa79593600ee9d7b5dab3cfc0"
   integrity sha1-lCu/KWO79J+nlZNgDunXtdqzz8A=
   dependencies:
     "@egjs/hammerjs" "^2.0.17"
@@ -5931,9 +5931,10 @@ react-native-web@^0.16.1:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
-react-native@facebook/react-native#cf8a364767df830d7255339741350bb53ab1a68a:
-  version "0.64.0"
-  resolved "https://codeload.github.com/facebook/react-native/tar.gz/cf8a364767df830d7255339741350bb53ab1a68a"
+react-native@0.64.1:
+  version "0.64.1"
+  resolved "https://registry.nlark.com/react-native/download/react-native-0.64.1.tgz#cd38f5b47b085549686f34eb0c9dcd466f307635"
+  integrity sha1-zTj1tHsIVUlobzTrDJ3NRm8wdjU=
   dependencies:
     "@jest/create-cache-key-function" "^26.5.0"
     "@react-native-community/cli" "^5.0.1-alpha.0"
