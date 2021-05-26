@@ -1,15 +1,10 @@
 import * as React from 'react';
 import {
-  ScrollView,
   View,
-  Text,
-  Button,
   TouchableOpacity,
   StyleSheet,
   StatusBar,
-  Alert,
-  TouchableHighlight,
-  PanResponder,
+  GestureResponderEvent,
 } from 'react-native';
 import {RectButton, FlatList, Swipeable} from 'react-native-gesture-handler';
 import {observer} from 'mobx-react';
@@ -20,6 +15,7 @@ import {Avatar, SearchBar} from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import {useTargetStore} from '@/stores';
 import SwipeableRow, {SwipeableHandle} from './SwipeableRow';
+import Row from './Row';
 
 const DATA = [
   {
@@ -35,26 +31,6 @@ const DATA = [
       'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus hendrerit ligula dignissim maximus aliquet. Integer tincidunt, tortor at finibus molestie, ex tellus laoreet libero, lobortis consectetur nisl diam viverra justo.',
   },
 ];
-
-const Row = observer(({item}: {item: any}) => {
-  const {themeData} = useTargetStore('userStore');
-
-  return (
-    <RectButton
-      style={[styles.rectButton, {backgroundColor: themeData.home_row_bg}]}
-      onPress={() => Alert.alert(item.from)}>
-      <>
-        <Text style={styles.fromText}>{item.from}</Text>
-        <Text numberOfLines={2} style={styles.messageText}>
-          {item.message}
-        </Text>
-        <Text style={styles.dateText}>
-          {item.when} {'❭'}
-        </Text>
-      </>
-    </RectButton>
-  );
-});
 
 const HomeScreen: React.ComponentType<
   StackScreenProps<StackParamList>
@@ -130,7 +106,7 @@ const HomeScreen: React.ComponentType<
     if (swipeableRef.current == ref.current) swipeableRef.current = undefined;
   };
 
-  const touchStartHandler = () => {
+  const touchStartHandler = (event: GestureResponderEvent) => {
     if (swipeableRef) swipeableRef.current?.close();
   };
 
@@ -155,7 +131,7 @@ const HomeScreen: React.ComponentType<
           <SwipeableRow
             onWillOpenHandle={onWillOpenHandle}
             swipeableCloseHandle={swipeableCloseHandle}>
-            <Row item={item} />
+            <Row item={item} navigation={navigation} />
           </SwipeableRow>
         )}
         keyExtractor={(item, index) => `message ${index}`}
@@ -171,33 +147,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 14,
   },
-  rectButton: {
-    flex: 1,
-    height: 80,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-  },
   separator: {
     backgroundColor: 'rgb(200, 199, 204)',
     height: StyleSheet.hairlineWidth,
-  },
-  fromText: {
-    fontWeight: 'bold',
-    // backgroundColor: 'transparent',
-  },
-  messageText: {
-    color: '#999',
-    // backgroundColor: 'transparent',
-  },
-  dateText: {
-    // backgroundColor: 'transparent',
-    position: 'absolute',
-    right: 20,
-    top: 10,
-    color: '#999',
-    fontWeight: 'bold',
   },
 });
 

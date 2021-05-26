@@ -1,0 +1,37 @@
+{
+  "id": "2434206",
+  "name": "signal",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "29929",
+      "name": "emoji",
+      "font_class": "emoji",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "38746",
+      "name": "round_add",
+      "font_class": "roundadd",
+      "unicode": "e6d9",
+      "unicode_decimal": 59097
+    },
+    {
+      "icon_id": "90847",
+      "name": "keyboard",
+      "font_class": "keyboard",
+      "unicode": "e71b",
+      "unicode_decimal": 59163
+    },
+    {
+      "icon_id": "289088",
+      "name": "sound",
+      "font_class": "sound",
+      "unicode": "e77b",
+      "unicode_decimal": 59259
+    }
+  ]
+}

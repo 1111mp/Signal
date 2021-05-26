@@ -15,8 +15,10 @@ module.exports = {
           //别名的配置
           '@': './lib',
           locales: './_locales',
+          source: './source',
         },
       },
     ],
+    'react-native-reanimated/plugin',
   ],
 };

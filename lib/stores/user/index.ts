@@ -54,8 +54,9 @@ export default class UserStore {
       },
     );
 
-    this.signIn();
+    this.isLoading = false;
     this.theme = 'system';
+    this.signIn();
   }
 
   @computed get themeData() {
@@ -77,7 +78,6 @@ export default class UserStore {
 
   @action
   signIn = () => {
-    this.isLoading = false;
     this.token = 'test';
   };
 

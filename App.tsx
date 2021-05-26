@@ -43,6 +43,8 @@ import EditNameScreen from '@/screens/EditNameScreen';
 import AppearanceScreen from '@/screens/AppearanceScreen';
 import ThemeScreen from '@/screens/ThemeScreen';
 import {useColorScheme} from 'react-native';
+import ChatRoom from '@/screens/ChatRoom';
+import TestScreen from '@/screens/TestScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 const MainStack = createStackNavigator();
@@ -103,11 +105,20 @@ const MainScreen: React.ComponentType = observer(() => {
             }}
           />
           <MainStack.Screen
+            name="ChatRoom"
+            component={ChatRoom}
+            options={({navigation}) => ({
+              headerLeft: () => <HeaderLeft navigation={navigation} />,
+              title: 'Chat Room',
+            })}
+          />
+          <MainStack.Screen
             name="Test"
-            component={SignUpScreen}
-            options={{
-              title: 'Sign up',
-            }}
+            component={TestScreen}
+            options={({navigation}) => ({
+              headerLeft: () => <HeaderLeft navigation={navigation} />,
+              title: 'Chat Room',
+            })}
           />
         </>
       )}

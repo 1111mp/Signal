@@ -2,6 +2,7 @@ type RootStackParamList = {
   Main: undefined;
   ModalParent: {} | undefined;
   ModalChild: {} | undefined;
+  ChatRoom: {} | undefined;
   Test: {} | undefined;
 };
 
