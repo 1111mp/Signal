@@ -35,6 +35,8 @@ const DATA = [
 const HomeScreen: React.ComponentType<
   StackScreenProps<StackParamList>
 > = observer(({navigation}) => {
+  const [search, setSearch] = React.useState<string>('');
+
   const swipeableRef = React.useRef<Swipeable>();
   const isFocused = useIsFocused();
   const [allow, setAllow] = React.useState<boolean>(true);
@@ -92,7 +94,7 @@ const HomeScreen: React.ComponentType<
           backgroundColor: themeData.input_bg_color,
         }}
         // onChangeText={this.updateSearch}
-        // value={search}
+        value={search}
       />
     );
   };

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {observer} from 'mobx-react';
-import {HeaderBackButton, StackNavigationProp} from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {HeaderBackButton} from '@react-navigation/elements';
 import {useTargetStore} from '@/stores';
 
 export type Props = {

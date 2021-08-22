@@ -1,9 +1,14 @@
 import * as React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, StatusBar} from 'react-native';
 import ScrollView from '@/components/ScrollView';
 
 const AccountScreen: React.ComponentType = () => {
-  return <ScrollView style={styles.container}></ScrollView>;
+  return (
+    <>
+      <StatusBar barStyle="light-content" />
+      <ScrollView style={styles.container}></ScrollView>
+    </>
+  );
 };
 
 const styles = StyleSheet.create({

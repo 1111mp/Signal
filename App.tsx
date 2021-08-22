@@ -44,7 +44,6 @@ import AppearanceScreen from '@/screens/AppearanceScreen';
 import ThemeScreen from '@/screens/ThemeScreen';
 import {useColorScheme} from 'react-native';
 import ChatRoom from '@/screens/ChatRoom';
-import TestScreen from '@/screens/TestScreen';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 const MainStack = createStackNavigator();
@@ -107,14 +106,6 @@ const MainScreen: React.ComponentType = observer(() => {
           <MainStack.Screen
             name="ChatRoom"
             component={ChatRoom}
-            options={({navigation}) => ({
-              headerLeft: () => <HeaderLeft navigation={navigation} />,
-              title: 'Chat Room',
-            })}
-          />
-          <MainStack.Screen
-            name="Test"
-            component={TestScreen}
             options={({navigation}) => ({
               headerLeft: () => <HeaderLeft navigation={navigation} />,
               title: 'Chat Room',
@@ -185,7 +176,10 @@ const ModalChildScreen = () => {
         headerBackground: () => <HeaderBackground />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       })}>
-      <ModalChildStack.Screen name="Account" component={AccountScreen} />
+      <ModalChildStack.Screen
+        name="Account"
+        component={AccountScreen}
+      />
       <ModalChildStack.Screen
         name="EditName"
         component={EditNameScreen}
@@ -223,13 +217,13 @@ const App = () => {
     <AppStoresProvider messages={locale.messages} stores={stores}>
       <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
         <RootStack.Navigator
-          mode="modal"
           screenOptions={({route, navigation}) => ({
+            presentation: 'modal',
             gestureEnabled: true,
             cardOverlayEnabled: true,
             headerStatusBarHeight:
               navigation
-                .dangerouslyGetState()
+                .getState()
                 .routes.findIndex((r: {key: string}) => r.key === route.key) > 0
                 ? 0
                 : undefined,
