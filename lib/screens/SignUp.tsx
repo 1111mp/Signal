@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import ScrollView from '@/components/ScrollView';
 import {Button, Icon, Input} from 'react-native-elements';
 import {observer} from 'mobx-react';

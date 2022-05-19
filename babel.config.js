@@ -15,7 +15,7 @@ module.exports = {
           //别名的配置
           '@': './lib',
           locales: './_locales',
-          source: './source',
+          assets: './assets',
         },
       },
     ],

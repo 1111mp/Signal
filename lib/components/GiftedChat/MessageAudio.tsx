@@ -83,8 +83,8 @@ const MessageAudio: React.ComponentType<Props> = ({
               resizeMode="cover"
               source={
                 playing
-                  ? require('source/images/receiverVoicePlayingBlack.gif')
-                  : require('source/images/receiverVoice.png')
+                  ? require('assets/images/receiverVoicePlayingBlack.gif')
+                  : require('assets/images/receiverVoice.png')
               }
               style={[styles.image, styles.imageLeft]}
             />
@@ -97,8 +97,8 @@ const MessageAudio: React.ComponentType<Props> = ({
               resizeMode="cover"
               source={
                 playing
-                  ? require('source/images/senderVoicePlayingBlack.gif')
-                  : require('source/images/senderVoice.png')
+                  ? require('assets/images/senderVoicePlayingBlack.gif')
+                  : require('assets/images/senderVoice.png')
               }
               style={[styles.image, styles.imageRight]}
             />

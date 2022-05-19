@@ -1,4 +1,4 @@
-import {findBestAvailableLanguage, getLocales} from 'react-native-localize';
+import {getLocales} from 'react-native-localize';
 import messages_en from 'locales/en/messages.json';
 import messages_zh_CN from 'locales/zh_CN/messages.json';
 

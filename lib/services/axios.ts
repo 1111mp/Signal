@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2021-05-19 11:53:30
- * @LastEditTime: 2021-05-20 13:27:13
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /Signal/lib/services/axios.ts
- */
 import axios, {AxiosRequestConfig, AxiosResponse} from 'axios';
 import Config from '@/config';
 
@@ -29,8 +21,8 @@ axios.interceptors.request.use((config: AxiosRequestConfig) => {
 
   if (!/login|register/.test(config.url)) {
     // const {token, userId} = (window as any).UserInfo;
-    config.headers.token = 'token'; // getToken
-    config.headers.userId = 'userId'; // getUserId
+    config.headers!.token = 'token'; // getToken
+    config.headers!.userId = 'userId'; // getUserId
   }
 
   return config;

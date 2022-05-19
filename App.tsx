@@ -44,6 +44,7 @@ import AppearanceScreen from '@/screens/AppearanceScreen';
 import ThemeScreen from '@/screens/ThemeScreen';
 import {useColorScheme} from 'react-native';
 import ChatRoom from '@/screens/ChatRoom';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const RootStack = createStackNavigator<RootStackParamList>();
 const MainStack = createStackNavigator();
@@ -176,10 +177,7 @@ const ModalChildScreen = () => {
         headerBackground: () => <HeaderBackground />,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       })}>
-      <ModalChildStack.Screen
-        name="Account"
-        component={AccountScreen}
-      />
+      <ModalChildStack.Screen name="Account" component={AccountScreen} />
       <ModalChildStack.Screen
         name="EditName"
         component={EditNameScreen}
@@ -202,52 +200,56 @@ const App = () => {
   const stores = createStore();
 
   React.useEffect(() => {
-    const _subscription = ({colorScheme}: Appearance.AppearancePreferences) => {
-      stores.userStore.setAppTheme(Appearance.getColorScheme()!);
-    };
-
-    Appearance.addChangeListener(_subscription);
+    const listener = Appearance.addChangeListener(
+      ({colorScheme}: Appearance.AppearancePreferences) => {
+        stores.userStore.setAppTheme(Appearance.getColorScheme()!);
+      },
+    );
 
     return () => {
-      Appearance.removeChangeListener(_subscription);
+      listener.remove();
     };
   }, []);
 
   return (
-    <AppStoresProvider messages={locale.messages} stores={stores}>
-      <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <RootStack.Navigator
-          screenOptions={({route, navigation}) => ({
-            presentation: 'modal',
-            gestureEnabled: true,
-            cardOverlayEnabled: true,
-            headerStatusBarHeight:
-              navigation
-                .getState()
-                .routes.findIndex((r: {key: string}) => r.key === route.key) > 0
-                ? 0
-                : undefined,
-            headerLeft: () => <HeaderLeft navigation={navigation} />,
-            ...TransitionPresets.ModalPresentationIOS,
-          })}>
-          <RootStack.Screen
-            name="Main"
-            component={MainScreen}
-            options={{headerShown: false}}
-          />
-          <RootStack.Screen
-            name="ModalParent"
-            component={ModalParentScreen}
-            options={{headerShown: false}}
-          />
-          <RootStack.Screen
-            name="ModalChild"
-            component={ModalChildScreen}
-            options={{headerShown: false}}
-          />
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </AppStoresProvider>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <AppStoresProvider messages={locale.messages} stores={stores}>
+        <NavigationContainer
+          theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <RootStack.Navigator
+            screenOptions={({route, navigation}) => ({
+              presentation: 'modal',
+              gestureEnabled: true,
+              cardOverlayEnabled: true,
+              headerStatusBarHeight:
+                navigation
+                  .getState()
+                  .routes.findIndex((r: {key: string}) => r.key === route.key) >
+                0
+                  ? 0
+                  : undefined,
+              headerLeft: () => <HeaderLeft navigation={navigation} />,
+              ...TransitionPresets.ModalPresentationIOS,
+            })}>
+            <RootStack.Screen
+              name="Main"
+              component={MainScreen}
+              options={{headerShown: false}}
+            />
+            <RootStack.Screen
+              name="ModalParent"
+              component={ModalParentScreen}
+              options={{headerShown: false}}
+            />
+            <RootStack.Screen
+              name="ModalChild"
+              component={ModalChildScreen}
+              options={{headerShown: false}}
+            />
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </AppStoresProvider>
+    </GestureHandlerRootView>
   );
 };
 
